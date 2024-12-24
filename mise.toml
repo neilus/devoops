@@ -1,0 +1,18 @@
+[tasks.fetch-content]
+description = "Fetches updates from the content repository"
+run = "git clone git@github.com:neilus/pets.git ;  git pull --rebase"
+dir = "pets"
+sources = ["pets"]
+
+[tasks.copy-content]
+run = "cp -r pets/mkdocs ."
+outputs = ["mkdocs"]
+sources = ["pets"]
+
+[tasks.publish]
+description = "Publish the content to gh-pages"
+run = "mise run publish"
+depends = ["copy-content"]
+sources = ["mkdocs"]
+dir = "mkdocs"
+
