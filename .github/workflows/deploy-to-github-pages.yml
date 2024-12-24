@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy Pets blog to Github Pages
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '0 10 * * *' # This sets the workflow to run daily at 10 AM UTC
+  workflow_dispatch: # This allows manual triggering
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout the source repository
+        uses: actions/checkout@v4
+
+      - name: checkout the pets repository
+        uses: actions/checkout@v4
+        with:
+          repository: git@github.com:neilus/pets.git
+          ssh-key: ${{ secrets.PETS_DEPLOYMENT_SSH_KEY }}
+          sparse-checkout: 'mkdocs/*'
+          show-progress: 'true'
+          lfs: 'true'
+        
+        
+      - name: setup mise
+        uses: jdx/mise-action@v2
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: mise run publish
