@@ -1,0 +1,12 @@
+[tasks.copy-content] # (1)!
+run = "cp -r pets/mkdocs ."
+outputs = ["mkdocs"]
+sources = ["pets"]
+
+[tasks.publish] # (2)!
+description = "Publish the content to gh-pages"
+run = "mise run publish"
+depends = ["copy-content"]
+sources = ["mkdocs"]
+dir = "mkdocs"
+
