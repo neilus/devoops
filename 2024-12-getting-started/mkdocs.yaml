@@ -1,0 +1,85 @@
+site_name: DevOoops
+site_description: "Daily rumblings of a Software Engineer"
+use_directory_urls: false
+site_url: ""
+theme:
+  palette: # (1)!
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  name: material
+  lang: en
+  color_mode: auto
+  user_color_mode_toggle: true # (2)!
+  features:
+    - navigation.path
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes 
+    - navigation.tracking
+    - navigation.top
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    - announce.dismiss
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+plugins:
+  - awesome-pages
+  - blog: # (3)!
+      blog_dir: .
+      blog_toc: true
+      draft_on_serve: true
+      draft_if_future_date: true
+      post_excerpt: optional
+  - search
+  - mermaid2: # (4)!
+      version: 11.4.1
+  - section-index
+
+markdown_extensions:
+  - admonition
+  - pymdownx.tasklist
+  - pymdownx.mark
+  - footnotes
+  - md_in_html
+  - pymdownx.superfences:
+        # make exceptions to highlighting of code:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      base_path:
+        - . 
+
